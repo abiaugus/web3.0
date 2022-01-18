@@ -27,6 +27,17 @@ export const TransactionProvider = ( {children} ) => {
     const handleChange = (e, name) => {
         setformData((prevState) => ({...prevState, [name]: e.target.value}));
     }
+    
+    const getAllTransactions = async () => {
+        try {
+            if(!ethereum) return alert("Please install MetaMask");
+            const transactionContract = getEthereumContract();
+            const availableTransactions = await transactionContract.getAllTransactions();
+            console.log(availableTransactions);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const checkIfWalletIsConnected = async () => {
         if(!ethereum)
@@ -35,8 +46,21 @@ export const TransactionProvider = ( {children} ) => {
         console.log(accounts);
         if(accounts.length){
             setCurrentAccount(accounts[0]);
+            getAllTransactions();
         } else {
             console.log("No accounts found.");
+        }
+    }
+
+    const checkIfTransactionExists = async () => {
+        try {
+            const transactionContract = getEthereumContract();
+            const transactionCount = await transactionContract.getTransactionCount();
+            window.localStorage.setItem("transactionCount", transactionCount);
+
+        } catch (error) {
+            console.log(error);
+            throw new error("No ETHEREUM object.");
         }
     }
 
@@ -83,6 +107,7 @@ export const TransactionProvider = ( {children} ) => {
 
     useEffect( () => {
         checkIfWalletIsConnected();
+        checkIfTransactionExists();
     },[]);
 
     return(
