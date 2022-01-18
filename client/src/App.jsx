@@ -11,7 +11,6 @@ const App = () => {
           <Services />
           <Transactions />
           <Footer />
-          <h1>test</h1>
     </div>
   )
 }
