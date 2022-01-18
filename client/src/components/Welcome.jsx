@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AiFillAlipayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
+import { shortenAddress } from "../utils/shortenAddress";
 
 import { Loader } from "./";
 import { TransactionContext } from "../context/TransactionContext";
@@ -83,7 +84,7 @@ const Welcome = () => {
                             </div>
                             <div>
                                 <p className="text-white font-light text-sm">
-                                    {/* {shortenAddress(currentAccount)} */}
+                                    {shortenAddress(currentAccount)}
                                 </p>
                                 <p className="text-white font-semibold text-lg mt-1">
                                     Ethereum
