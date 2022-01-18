@@ -13,7 +13,8 @@ const getEthereumContract = () => {
     const signer = provider.getSigner();
     const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
 
-    
+    return transactionContract;
+
     console.log({provider, signer, transactionContract});
 }
 
